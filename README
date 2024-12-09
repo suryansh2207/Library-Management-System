@@ -1,0 +1,69 @@
+Library Management System API
+
+This project implements a simple Library Management System using Flask. The API supports CRUD operations for managing books and members, along with token-based authentication and optional features like pagination and search functionality.
+
+Table of Contents
+- Prerequisites
+- Installation
+- How to Run the Project
+- API Endpoints
+- Design Choices
+- Assumptions and Limitations
+
+Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- Python 3.x
+- Flask
+
+Installation
+
+1. Clone the repository:
+
+   git clone https://github.com/yourusername/Library-Management-System.git
+   cd Library-Management-System
+
+2. Install Flask
+
+   pip install Flask
+
+How to Run the Project
+
+1. Navigate to the project directory:
+
+cd Library-Management-System
+
+2. Run the Flask server:
+
+   python app.py
+   The server will start on http://127.0.0.1:5000.
+
+3. Access the API: You can use tools like curl or Postman (if available) to interact with the API.
+
+4. Include the authorization token in the curl or Postman request.
+
+API Endpoints
+
+/: Landing page with entry message.                                                           
+GET /token: Retrieve the current authorization token.
+GET /books: Retrieve a list of all books (requires authorization).
+POST /books: Add a new book (requires authorization).
+GET /books/<book_id>: Retrieve a specific book by ID (requires authorization).
+PUT /books/search: Retrieve a specific book by its author or title (requires authorization).
+PUT /books/<book_id>: Update a specific book by ID (requires authorization).
+DELETE /books/<book_id>: Delete a specific book by ID (requires authorization).
+                                                           
+Design Choices
+
+Token-based Authentication: A random token is generated at server startup to ensure secure access to the API. This token must be included in the Authorization header for all requests.
+In-memory Storage: For simplicity, the data (books and members) is stored in-memory using Python dictionaries and lists. This means that data will not persist after the server is restarted.
+
+Assumptions and Limitations
+                                                           
+Data Persistence: The current implementation does not persist data. All data will be lost when the server stops. Future enhancements could include integrating a database for persistent storage.
+Input Validation: The current implementation lacks robust input validation and error handling. It is assumed that clients will provide valid input.
+Single-user Access: The token-based authentication does not currently support multiple users or roles. It is designed for a single user for simplicity.
+
+
+
