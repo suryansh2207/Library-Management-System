@@ -10,6 +10,22 @@ app = Flask(__name__)
 app.register_blueprint(books_bp)
 app.register_blueprint(members_bp)
 
+@app.route('/token', methods=['GET'])
+def get_token():
+    return jsonify({'token': SECRET_TOKEN})
+
+@app.route('/')
+def index():
+    return jsonify({"message": "Welcome to the Library Management System API!"})
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({'error': 'Not found'}), 404
+
+@app.errorhandler(401)
+def unauthorized(error):
+    return jsonify({'error': 'Unauthorized'}), 401
+
 # Generate a random token on server start
 SECRET_TOKEN = secrets.token_hex(16)
 print(f"Generated Token: {SECRET_TOKEN}")  # Output the token for use
@@ -40,6 +56,8 @@ def require_auth():
 def test_auth():
     token = request.headers.get("Authorization")
     return {"validation_result": verify_token(token), "received_token": token}
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
